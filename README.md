@@ -547,8 +547,10 @@ This is a collection of papers on other important topics related to neural netwo
   - *Training in hardware systems such as integer-based deep learning accelerators and neuromorphic chips with comparable accuracy and higher energy efficiency, which is crucial to future AI applications in variable scenarios with transfer and continual learning demands.*
 - [AMC: AutoML for Model Compression and Acceleration on Mobile Devices](https://arxiv.org/abs/1802.03494) (CMU, Google, MIT, **2018 ECCV**)
 #### Journal Papers
-     
-
+##### I.Frontiers in Neuroscience      
+- [A reconfigurable on-line learning spiking neuromorphic processor comprising 256 neurons and 128K synapses](https://www.frontiersin.org/articles/10.3389/fnins.2015.00141/full)(Ning Qiao,Institute of Neuroinformatics, University of Zurich and ETH Zurich, Zurich, Switzerland,2015)
+##### II. IEEE TRANSACTIONS ON BIOMEDICAL CIRCUITS AND SYSTEMS
+- [A Scalable Multicore Architecture With Heterogeneous Memory Structures for Dynamic Neuromorphic Asynchronous Processors (DYNAPs)](https://ieeexplore.ieee.org/document/8094868)(Saber Moradi,Ning Qiao,Yale University,2017)
 #### arXiv Papers
 - [Reduced-Precision Strategies for Bounded Memory in Deep Neural Nets.](https://arxiv.org/abs/1511.05236) (University of Toronto, University of British Columbia)
 - [Binarized Neural Networks: Training Deep Neural Networks with Weights and Activations Constrained to +1 or -1.](http://arxiv.org/abs/1602.02830)

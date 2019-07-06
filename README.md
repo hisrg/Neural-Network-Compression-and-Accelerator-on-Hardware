@@ -551,6 +551,8 @@ This is a collection of papers on other important topics related to neural netwo
 - [A reconfigurable on-line learning spiking neuromorphic processor comprising 256 neurons and 128K synapses](https://www.frontiersin.org/articles/10.3389/fnins.2015.00141/full)(Ning Qiao,Institute of Neuroinformatics, University of Zurich and ETH Zurich, Zurich, Switzerland,2015)
 ##### II. IEEE TRANSACTIONS ON BIOMEDICAL CIRCUITS AND SYSTEMS
 - [A Scalable Multicore Architecture With Heterogeneous Memory Structures for Dynamic Neuromorphic Asynchronous Processors (DYNAPs)](https://ieeexplore.ieee.org/document/8094868)(Saber Moradi,Ning Qiao,Yale University,2017)
+- [Overview of the SpiNNaker System Architecture](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6226357)(Steve B.Furber ; David R.Lester ; Luis A.Plana ; Jim D. Garside; Eustace Painkras ; Steve Temple ,IEEE TRANSACTIONS ON COMPUTERS,2013)
+- [Neuromorphic LIF Row-by-Row Multiconvolution Processor for FPGA ](https://ieeexplore.ieee.org/document/8526309)(Ricardo Tapiador-Morales;Alejandro Linares-Barranco ;Angel Jimenez-Fernandez,2019)
 ##### III.IEEE-International-Symposium-on Circuits-and-Systems
 - [TrueNorth: Design and Tool Flow of a 65mW 1 Million Neuron Programmable Neurosynaptic Chip
 ](https://ieeexplore.ieee.org/document/7229264)(Filipp Akopyan,IBM,2015)

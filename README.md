@@ -556,10 +556,12 @@ This is a collection of papers on other important topics related to neural netwo
 ##### III.IEEE-International-Symposium-on Circuits-and-Systems
 - [TrueNorth: Design and Tool Flow of a 65mW 1 Million Neuron Programmable Neurosynaptic Chip
 ](https://ieeexplore.ieee.org/document/7229264)(Filipp Akopyan,IBM,2015)
-##### IV.Science
+##### IV.Science & Nature
 - [A million spiking-neuron integrated circuit with a scalable communication network and interface
 ](https://science.sciencemag.org/content/345/6197/668.figures-only)(Paul A,Merolla,IBM,2014)
-
+- [Towards artificial general intelligence with hybrid Tianjic chip architecture
+]( https://doi.org/10.1038/s41586-019-1424-8
+)(Jing Pei,PingLu Shi et al,Tsinghua University,2019)
 #### arXiv Papers
 - [Reduced-Precision Strategies for Bounded Memory in Deep Neural Nets.](https://arxiv.org/abs/1511.05236) (University of Toronto, University of British Columbia)
 - [Binarized Neural Networks: Training Deep Neural Networks with Weights and Activations Constrained to +1 or -1.](http://arxiv.org/abs/1602.02830)

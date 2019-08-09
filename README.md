@@ -552,6 +552,7 @@ This is a collection of papers on other important topics related to neural netwo
 ##### II. IEEE TRANSACTIONS ON BIOMEDICAL CIRCUITS AND SYSTEMS
 - [A Scalable Multicore Architecture With Heterogeneous Memory Structures for Dynamic Neuromorphic Asynchronous Processors (DYNAPs)](https://ieeexplore.ieee.org/document/8094868)(Saber Moradi,Ning Qiao,Yale University,2017)
 - [Overview of the SpiNNaker System Architecture](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6226357)(Steve B.Furber ; David R.Lester ; Luis A.Plana ; Jim D. Garside; Eustace Painkras ; Steve Temple ,IEEE TRANSACTIONS ON COMPUTERS,2013)
+- [Multicasting Mesh AER: A Scalable Assembly Approach for Reconﬁgurable Neuromorphic StructuredAERSystems.ApplicationtoConvNets ](https://ieeexplore.ieee.org/document/6211459)(Carlos Zamarreño-Ramos, Alejandro Linares-Barranco,IEEE TRANSACTIONS ON BIOMEDICAL CIRCUTIS AND SYSTEMS,2013)
 - [Neuromorphic LIF Row-by-Row Multiconvolution Processor for FPGA ](https://ieeexplore.ieee.org/document/8526309)(Ricardo Tapiador-Morales;Alejandro Linares-Barranco ;Angel Jimenez-Fernandez,2019)
 ##### III.IEEE-International-Symposium-on Circuits-and-Systems
 - [TrueNorth: Design and Tool Flow of a 65mW 1 Million Neuron Programmable Neurosynaptic Chip

@@ -2,6 +2,9 @@
 
 My name is Fang Biao. I'm currently pursuing my Master degree with the college of Computer Science and Engineering, Si Chuan University, Cheng Du, China. For more informantion about me and my research, you can go to [my homepage](https://github.com/hisrg). One of my research interests is architecture design for deep learning and neuromorphic computing. This is an exciting field where fresh ideas come out every day, so I'm collecting works on related topics. Welcome to join us!
 
+
+中文：我叫房彪，目前就读于四川大学计算机学院(望江，成都，中国),关于我目前的研究内容您可以登陆github.com/hisrg进行浏览，我目前研究的主要内容是基于深度学习和类脑计算的系统架构，这是一个非常振奋人心的领域，因此我一直在收集相关领域的最新工作，欢迎加入我们！
+
 ## Table of Contents
  - [My Contributions](#my-contributions)
  - [Conference Papers](#conference-papers)

@@ -30,6 +30,7 @@ My name is Fang Biao. I'm currently pursuing my Master degree with the college o
 ## My Contributions
 None, the new research will be comming soon.
 - [An FPGA Implementation of Deep Spiking Neural Network for Low-Power and Fast Classification.](Xiping Ju, Biao Fang, Rui Yan, Xiaoliang Xu, & Huajin Tang. (2019).)(http://www.ncbi.nlm.nih.gov/pubmed/31703174)(Neural Computation. (Published))
+- [Spike Trains Encoding Optimization for Spiking Neural Networks Implementation in FPGA.](Fang B, Zhang Y, Yan R, Tang H.(2020))(2020 12th International Conference on Advanced Computational Intelligence (ICACI), IEEE, 2020, pp. 412-418.Published)
 ## Conference Papers
 This is a collection of conference papers that interest me. The emphasis is focused on, but not limited to neural networks on silicon. Papers of significance are marked in **bold**. My comments are marked in *italic*.
 

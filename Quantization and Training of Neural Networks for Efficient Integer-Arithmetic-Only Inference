@@ -1,0 +1,2 @@
+本期彪哥分享Google移动端网络量化与加速开山之作：Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference，
+该作相关code已被TF lite 所采用。参考文献：https://www.cnblogs.com/jiangxinyang/p/12056202.html 我的github:github.com/hisrg

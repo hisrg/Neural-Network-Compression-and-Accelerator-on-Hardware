@@ -141,4 +141,27 @@ special convolution operations such as the depthwise separable convolution or gr
 在图12中，我们演示了构成体系结构搜索空间的不同DNN操作。首先，我们把CNN分成两组，标准的CNN，只有利用。一个标准的卷积和扩展的CNN，其中包括
 特殊的卷积运算，如深度可分离卷积或分组卷积。如图所示，NAS一直主要由卷积神经网络主导。然而，最近的工作已经开始探索更多的运营商，通过合并胶囊网络[100]，变压器
 [139]和GANs[94]。
-
+## HARDWARE-AWARE NAS PROBLEM FORMULATION
+## 硬件感知NAS问题定义(形成)
+Neural Architecture Search (NAS) is the task of finding a well-performing architecture for a given dataset. It is cast as an optimization problem over a set of decisions that define different components of deep neural networks (i.e., layers, hyperparameters). This optimization problem can simply be seen as formulated in equation 2.\
+神经体系结构搜索(NAS)的任务是为给定的数据集找到一个性能良好的体系结构。它被视为一个优化问题，需要一系列决策来定义深度神经网络的不同组成部分(即层次、超参数)。这个优化问题可以简单地看成如公式2所示。\
+We denote the space of all feasible architectures as A (alsocalled search space). The optimization method is looking for the architecture α that maximizes the performance metric denoted by f for a given dataset δ. In this context, f can simply be the accuracy of the model.\
+我们将所有可行体系结构的空间表示为A(也称为搜索空间)。 优化方法是寻找使性能指标最大化的体系结构α 对于给定的数据集δ，用f表示。 在这种情况下，f可以仅仅是模型的准确性。\
+Although it is important to find networks that provide high accuracy, these NAS algorithms tend to give complex models that cannot be deployed on many hardware devices. To
+overcome this problem, practitioners consider other objectives,
+such as the number of model parameters, the number of
+floating-point operations, and device-specific statistics like
+the latency or the energy consumption of the model. Different formulations were used to incorporate the hardwareaware objectives within the optimization problem of neuralarchitecture search. We classify these approaches into two classes, single and multi-objective optimization. The single objective optimization can be further classified as two-stage or constrained optimization. Similarly, the multi-objective optimization approach can be further classified as single or multi-objective optimizations. Please refer to figure 13 for a summary of these approaches. These 2 classes are further detailed with examples from the literature in the following
+sections:\
+尽管找到提供高精度的网络很重要，但这些NAS算法往往会给出无法在许多硬件设备上部署的复杂模型。来克服这个问题，从业者会考虑其他目标，如型号参数的个数、数量等浮点运算和特定于设备的统计信息，比如模型的延迟或能量消耗。 在神经结构搜索的优化问题中，使用不同的公式来整合硬件目标。 我们将这些方法分为单目标优化和多目标优化两类。单目标优化又可分为两阶段优化和约束优化。类似地，多目标优化方法可以进一步分为单目标或多目标优化。这些方法的摘要请参见图13。 这两个类是进一步详细的例子，从文献在下面部分:
+###  Single-Objective Optimization
+###  单目标优化
+In this class, the search is realized considering only one
+objective to maximize, i.e the accuracy. Most of the existing
+work in the literature [47], [53], [78], [122], [120], that tackle
+the hardware-aware neural architecture search, try to formulate
+the multi-objective optimization problem into a single objective to better apply strategies like reinforcement learning or
+gradient-based methods. We can divide this class into two
+different approaches: Two-stage optimization and constrained
+optimization.\
+在这一类中，搜索只考虑一个目标最大化，即准确性。现有的大部分文献[47]，[53]，[78]，[122]，[120]，处理硬件感知的神经架构搜索，尝试表述将多目标优化问题转化为一个单一目标，以更好地应用策略，如强化学习或基于梯度的方法。 我们可以把这个班分成两个班不同的方法:两阶段优化和约束优化。\

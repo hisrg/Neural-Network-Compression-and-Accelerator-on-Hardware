@@ -1,5 +1,31 @@
 # A Comprehensive Survey on Hardware-Aware  Neural Architecture Search
 # 硬件感知神经结构搜索的综述
+
+## Abstract(综述)
+-- Neural Architecture Search (NAS) methods have been growing in popularity. These techniques have been fundamental to automate and speed up the time consuming and error-prone process of synthesizing novel Deep Learning (DL) architectures. NAS has been extensively studied in the past few years. Arguably their most significant impact has been in image classification and object detection tasks where the state of the art results have been obtained. Despite the significant success achieved to date, applying NAS to real-world problems still poses significant challenges and is not widely practical. In general, the synthesized Convolution Neural Network (CNN) architectures are too complex to be deployed in resource-limited platforms, such as IoT, mobile, and embedded systems. One solution growing in popularity is to use multi-objective optimization algorithms in the NAS search strategy by taking into account execution latency, energy consumption, memory footprint, etc. This kind of NAS, called hardware-aware NAS (HW-NAS), makes searching the most efficient architecture more complicated and opens several questions. In this survey, we provide a detailed review of existing HW-NAS research and categorize them according to four key dimensions: the search space, the search strategy, the acceleration technique, and the hardware cost estimation strategies. We further discuss the challenges and limitations of existing approaches and potential future directions. This is the first survey paper focusing on hardware-aware NAS. We hope it serves as a valuable reference for the various techniques and algorithms discussed and paves the road for future research towards hardware-aware NAS.\
+--神经架构搜索(NAS)方法越来越受欢迎。这些技术对于自动化和加快合成新型深度学习(DL)体系结构耗时且易出错的过程具有重要意义。NAS在过去的几年中得到了广泛的研究。可以说，它们最显著的影响是在图像分类和目标检测任务中，目前已经获得了最先进的结果。尽管迄今为止NAS取得了巨大的成功，但将其应用于现实世界的问题仍然面临着巨大的挑战，而且还没有广泛的实用性。一般来说，合成卷积神经网络(CNN)架构过于复杂，无法部署在资源有限的平台上，如物联网、移动和嵌入式系统。一种日益流行的解决方案是在NAS搜索策略中考虑执行延迟、能源消耗、内存占用等因素，使用多目标优化算法。这种NAS称为硬件感知NAS (HW-NAS)，使得搜索最高效的体系结构变得更加复杂，并引发了一些问题。在本调查中，我们详细回顾了现有的HW-NAS研究，并根据四个关键维度将其分类:搜索空间、搜索策略、加速技术和硬件成本估计策略。我们进一步讨论了现有方法的挑战和局限性，以及潜在的未来方向。这是第一篇关注硬件感知NAS的综述论文。我们希望它可以为所讨论的各种技术和算法提供有价值的参考，并为未来的硬件感知NAS的研究铺平道路。
+## I. INTRODUCTION(简述)
+--DEEP Learning (DL) systems are revolutionizing technology around us across many domains such as computer vision [1], [2], [3], [4], speech processing [5], [6], [7] and Natural Language Processing (NLP) [8], [9], [10]. These breakthroughs would not have been possible without the avail ability of big data, the tremendous growth in computational power, advances in hardware acceleration, and the recent algorithmic advancements. However, designing accurate neural networks is challenging due to:\
+--深度学习(DEEP Learning, DL)系统正在我们周围的许多领域带来革命性的技术，如计算机视觉[1]，[2]，[3]，[4]，语音处理[5]，[6]，[7]和自然语言处理(NLP)[8]，[9]，[10]。如果没有大数据、计算能力的巨大增长、硬件加速的进步以及最近算法的进步，这些突破是不可能实现的。然而，设计精确的神经网络具有挑战性，因为:\
+* The variety of data types and tasks that require different
+neural architectural designs and optimizations(需要不同神经架构设计和优化的各种数据类型和任务)。
+* The vast amount of hardware platforms which makes it difficult to design one globally efficient architecture(大量的硬件平台使得设计一个全球高效的架构变得困难)。
+For instance, certain problems require task-specific models, e.g. EfficientNet [11] for image classification and ResNest [12] for semantic segmentation, instance segmentation and object detection. These networks differ on the proper configuration of their architectures and their hyperparameters. The hyperparameters here refer to the pre-defined properties related to the architecture or the training algorithm.
+例如，某些问题需要特定于任务的模型，例如用于图像分类的EffectiveNet [11]和用于语义分割，实例分割和对象检测的ResNest [12]。这些网络在其体系结构和超参数的正确配置上有所不同。此处的超参数是指与体系结构或训练算法相关的预定义属性。\
+In general, the neural network architecture can be formalized as a Directed Acyclic Graph (DAG) where each node corresponds to an operator applied to the set of its parent nodes [13]. Example operators are convolution, pooling, activation, and self-attention. Linking these operators together gives rise to different architectures. A key aspect of designing a well-performing deep neural network is deciding the type and number of nodes and how to compose and link them. Additionally, the architectural hyperparameters (e.g., stride and channel number in a convolution, etc.) and the training hyper parameters (e.g., learning rate, number of epochs, momentum, etc.) are also important contributors to the overall performance. Figure 1 shows an illustration of some architectural choices for the type of convolutional neural network.\
+通常，神经网络架构可以形式化为有向无环图（DAG），其中每个节点对应于应用于其父节点集的运算符[13]。示例运算符包括卷积、池化、激活和自关注。将这些运算符连接在一起会产生不同的体系结构。设计性能良好的深度神经网络的一个关键方面是确定节点的类型和数量，以及如何组合和链接它们。此外，架构超参数（例如，卷积中的步幅和通道数等）和训练超参数（例如，学习率、纪元数、动量等）也是整体性能的重要贡献者。图 1 显示了卷积神经网络类型的一些架构选择的图示。\
+According to this representation, DL models can contain hundreds of layers and millions or even billions of parameters. These models are either handcrafted by repetitive experimentation or modified from a handful of existing models. These models have also been growing in size and complexity. All of this renders handcrafting deep neural networks a complex task that is time-consuming, error-prone and requires deep ex pertise and mathematical intuitions. Thus, in recent years, it is not surprising that techniques to automatically design efficient architectures, or NAS for ”Neural Architecture Search”, for a given dataset or task, have surged in popularity.\
+根据这种表示，DL模型可以包含数百个层和数百万甚至数十亿个参数。这些模型要么是通过重复实验手工制作的，要么是从少数现有模型中修改而来的。这些模型的规模和复杂性也在不断增长。这使得手工制作深度神经网络成为一项复杂的任务，耗时且容易出错，并且需要深入的专业知识和数学直觉。因此，近年来，对于给定的数据集或任务，自动设计高效架构或"神经架构搜索"的NAS技术激增也就不足为奇了。\
+In figure 2, we compare several deep learning models for the image classification task. Each dot in the plot corresponds to a given DL architecture that has been used for image classification. The dot size correlates with the size of the corresponding neural network in terms of the number of parameters. A quick look at the graph reveals the trend to design larger models to better Top 1 accuracy. However, the size is not necessarily correlated with better accuracy. There have been several efforts to conceive more efficient and smaller networks to achieve comparable Top 1 accuracy performance. We compare four classes of models: Handcrafted, Efficient handcrafted, NAS, and HW-NAS. Generally, throughout the years the handcrafted models rank high up in terms of accuracy but are much more complex in terms of the depth of the architecture or the large number of parameters. For instance, ViT-H [15], which is the state-of-the-art model as of December 2020, has over 600 million parameters and 32 layers. In the top right quadrant of the figure 2 (around the same region as most of the recently handcrafted models), we find some of the models that are automatically created by different NAS techniques. These latter techniques focus only on improving the model’s accuracy without paying attention to the efficiency of the model in terms of its size and latency. Therefore, these NAS models are still large, with the number of parameters ranging between 100M and 500M.\
+在图 2 中，我们比较了用于图像分类任务的几个深度学习模型。图中的每个点都对应于已用于图像分类的给定 DL 体系结构。就参数数量而言，点大小与相应神经网络的大小相关。快速浏览一下图表，就会发现设计更大模型以提高 Top 1 准确性的趋势。但是，大小不一定与更好的准确性相关。已经进行了多次努力来构思更高效和更小的网络，以实现可比的Top 1精度性能。我们比较了四种类型：手工制作，高效手工制作，NAS和HW-NAS。一般来说，多年来，手工制作的模型在准确性方面排名很高，但在架构的深度或大量参数方面要复杂得多。例如，ViT-H [15]是截至2020年12月最先进的模型，具有超过6亿个参数和32层。在图 2 的右上象限（与大多数最近手工制作的型号大致相同区域）中，我们找到了一些由不同 NAS 技术自动创建的模型。后一种技术仅关注提高模型的准确性，而不关注模型在大小和延迟方面的效率。因此，这些NAS机型仍然很大，参数数量在100M到500M之间。\
+Since 2015, we have noticed the rise of efficient handcrafted models. These models rely on compression methods (see section III-A1) to decrease the model’s size while trying to maintain the same accuracy. MobileNet-V2 [16] and Inception [17] are good examples where the number of parameters is between 20M and 80M. This paper focuses on the class of hardware or platform-aware NAS techniques: HW-NAS. This class encompasses work that aims to tweak NAS algorithms and adapt them to find efficient DL models optimized for a target hardware device. HW-NAS began to appear in 2017 and since then achieved state of the art (SOTA) results in resource constrained environments with Once-for-all (OFA) [18] for example.\
+自2015年以来，我们注意到高效手工模型的兴起。这些模型依靠压缩方法（参见第III-A1节）来减小模型的大小，同时试图保持相同的精度。MobileNet-V2 [16] 和 Inception [17] 就是一个很好的例子，其中参数数量介于 20M 和 80M 之间。本文重点介绍硬件或平台感知 NAS 技术的类别：HW-NAS。本课程包括旨在调整 NAS 算法并对其进行调整以查找针对目标硬件设备优化的高效 DL 模型的工作。HW-NAS于2017年开始出现，从那时起，通过一劳永逸（OFA）[18]，在资源受限的环境中实现了最先进的（SOTA）结果。
+
+  
+
+
+
+
 ## IV.TAXONOMY OF HW-NAS(HW-NAS的分类)
 Unlike conventional NAS, where the goal is to find the best architecture that maximizes model accuracy, hardware-aware NAS (HW-NAS) has multiple goals and multiple views of the problem. We can classify these goals into three categories (See figure 9 from left to right)：
 
@@ -75,10 +101,10 @@ the macro architecture is usually identical to the one shown in figure 1. Theref
 在现有的NAS研究工作中，作者定义了一个宏架构，该架构一般决定了在搜索空间中考虑的网络类型。当考虑到CNN,宏体系结构通常与图1所示的体系结构相同。因此，很多作品[53]、[23]、[47]、[127]、[130]在层数、操作集和可能的超参数值上存在差异。最近，网络类型的范围正在发生变化。例如，NASCaps[100]改变了他们的宏观架构，允许定义胶囊。胶囊网络[131]基本上是基于细胞的CNN，其中每个细胞(或胶囊)可以包含不同的CNN结构。\
 Other works like [66], [99] focus on transformers and define their macro-architecture as a transformer model. The search consists of finding the number of attention heads and their internal operations. When dealing with the hyperparameters only, the macro architecture can define a variety of network
 types. Authors in [75], [105] mix different definitions, transformers + CNN and transformers + RNN respectively. They define a set of hyperparameters that encompasses the predefined parameters for different network types at the same time.\
-其他作品如[66]、[99]关注变压器，并将其宏观架构定义为变压器模型。搜索的内容包括找到关注头的数量及其内部运作。当只处理超参数时，宏体系结构可以定义各种网络
-类型。[75]、[105]的作者混合了不同的定义，分别是变压器+ CNN和变压器+ RNN。它们定义了一组超参数，同时包含了针对不同网络类型的预定义参数。
+其他作品如[66]、[99]关注transformers，并将其宏观架构定义为transformers模型。搜索的内容包括找到关注头的数量及其内部运作。当只处理超参数时，宏体系结构可以定义各种网络
+类型。[75]、[105]的作者混合了不同的定义，分别是transformers+ CNN和transformers+ RNN。它们定义了一组超参数，同时包含了针对不同网络类型的预定义参数。
 Lately, more work [53], [64] have been considering the use of over-parameterized networks (i.e. supernetworks) to speedup the NAS algorithms. These networks consist of adding architectural learnable weights that select the appropriate operator at the right place. Note that these techniques have been applied to transformers as well [132].
-最近，更多的工作[53]，[64]已经考虑使用过度参数化网络(即超级网络)来加速NAS算法。这些网络包括添加体系结构的可学习权值，以在正确的位置选择适当的操作符。请注意，这些技术也应用于变压器[132]。
+最近，更多的工作[53]，[64]已经考虑使用过度参数化网络(即超级网络)来加速NAS算法。这些网络包括添加体系结构的可学习权值，以在正确的位置选择适当的操作符。请注意，这些技术也应用于transformers[132]。
 
 Finally, in some research efforts, the pool of operators/architectures is refined with only the models that are efficient in the targeted hardware [128], [127]. The search space size is considerably reduced by omitting all the architectures that cannot be deployed.
 最后，在一些研究中，运营商/架构池仅通过目标硬件中高效的模型进行了细化[128]，[127]。通过省略所有不能部署的架构，搜索空间的大小大大减少。
@@ -124,23 +150,18 @@ top-1 accuracy on an off-the-shelf commercial microcontroller.
 微型设备:微控制器和物联网应用的强劲增长催生了TinyML[134]。TinyML指的是所有用于微型设备的机器学习算法，即能够在极低功耗的情况下进行设备推理。一种针对微型设备的相关HW-NAS方法是MCUNet[123]，其中包括一种名为TinyNAS的高效神经架构搜索。TinyNAS优化了搜索空间，并在低搜索成本下处理各种不同的约束条件(例如，设备、延迟、能量、内存)。由于高效的搜索，MCUNet是第一个实现>70% ImageNet
 在一个现成的商用微控制器上，精度是最高的。
 ## Current Hardware-NAS Trends
-Figure 11 shows the different types of platforms that have been targeted by HW-NAS in the literature. In total, we have studied 126 original hardware-aware NAS papers. By target, we mean the platform that the architecture is optimized
-for. Usually the search algorithm is executed in a powerful machine, but that is not the purpose of our study. ”No Specific Target” means that the HW-NAS incorporates hardware agnostic constraints into the objective function such as the number of parameters or the number of FLOPs. In the figure, the
+## 硬件感知架构搜索现状
+Figure 11 shows the different types of platforms that have been targeted by HW-NAS in the literature. In total, we have studied 126 original hardware-aware NAS papers. By target, we mean the platform that the architecture is optimizedfor. Usually the search algorithm is executed in a powerful machine, but that is not the purpose of our study. ”No Specific Target” means that the HW-NAS incorporates hardware agnostic constraints into the objective function such as the number of parameters or the number of FLOPs. In the figure, the
 tag ”Multiple” means multiple types of processing elements have been used in the HW platform. Table III gives the list of references per targeted hardware.
 \
-图11显示了文献中HW-NAS针对的不同类型的平台。我们总共研究了126篇原始的硬件感知NAS论文。所谓目标，我们指的是架构被优化的平台
-对。通常搜索算法是在一个强大的机器中执行的，但这不是我们研究的目的。”无特定目标”意味着HW-NAS将硬件不确定的约束合并到目标函数中，例如参数的数量或FLOPs的数量。在图中
-标签“多”表示在HW平台中使用了多种处理元素。表III给出了每个目标硬件的参考列表。
+图11显示了文献中HW-NAS针对的不同类型的平台。我们总共研究了126篇原始的硬件感知NAS论文。所谓目标，我们指的是架构被优化的平台。通常搜索算法是在一个强大的机器中执行的，但这不是我们研究的目的。”无特定目标”意味着HW-NAS将硬件不确定的约束合并到目标函数中，例如参数的数量或FLOPs的数量。在图中标签“多”表示在HW平台中使用了多种处理元素。表III给出了每个目标硬件的参考列表。
 In the figure, we note that the number of research papers targeting GPUs and CPUs has more or less remained constant. However, we can clearly see that FPGAs and ASICs are gaining popularity over the last 3 years. This is consistent with
 the increasing number of deep learning edge applications. Two recent interesting works are [127], [128] both of which target multiple hardware platforms at once.\
-在图中，我们注意到针对gpu和cpu的研究论文数量基本保持不变。然而，我们可以清楚地看到，fpga和asic在过去3年里越来越受欢迎。这与
-深度学习的边缘应用越来越多。最近的两个有趣的作品是[127]，[128]，它们都同时针对多个硬件平台。
+在图中，我们注意到针对gpu和cpu的研究论文数量基本保持不变。然而，我们可以清楚地看到，fpga和asic在过去3年里越来越受欢迎。这与深度学习的边缘应用越来越多。最近的两个有趣的作品是[127]，[128]，它们都同时针对多个硬件平台。
 In figure 12, we illustrates the different DNN operations that compose the architecture search space. First, we divide the CNN into two groups, standard CNN which only utilizes.a standard convolution and extended CNN which involves
 special convolution operations such as the depthwise separable convolution or grouped convolutions. NAS has been mostly dominated by convolutional neural networks as shown in the figure. However, recent works have started explore more operators by incorporating capsule networks [100], transformers
 [139], and GANs [94].
-在图12中，我们演示了构成体系结构搜索空间的不同DNN操作。首先，我们把CNN分成两组，标准的CNN，只有利用。一个标准的卷积和扩展的CNN，其中包括
-特殊的卷积运算，如深度可分离卷积或分组卷积。如图所示，NAS一直主要由卷积神经网络主导。然而，最近的工作已经开始探索更多的运营商，通过合并胶囊网络[100]，变压器
-[139]和GANs[94]。
+在图12中，我们演示了构成体系结构搜索空间的不同DNN操作。首先，我们把CNN分成两组，标准的CNN，只有利用。一个标准的卷积和扩展的CNN，其中包括特殊的卷积运算，如深度可分离卷积或分组卷积。如图所示，NAS一直主要由卷积神经网络主导。然而，最近的工作已经开始探索更多的运营商，通过合并胶囊网络[100]，transformers[139]和GANs[94]。
 ## HARDWARE-AWARE NAS PROBLEM FORMULATION
 ## 硬件感知NAS问题定义(形成)
 Neural Architecture Search (NAS) is the task of finding a well-performing architecture for a given dataset. It is cast as an optimization problem over a set of decisions that define different components of deep neural networks (i.e., layers, hyperparameters). This optimization problem can simply be seen as formulated in equation 2.\
@@ -165,3 +186,11 @@ gradient-based methods. We can divide this class into two
 different approaches: Two-stage optimization and constrained
 optimization.\
 在这一类中，搜索只考虑一个目标最大化，即准确性。现有的大部分文献[47]，[53]，[78]，[122]，[120]，处理硬件感知的神经架构搜索，尝试表述将多目标优化问题转化为一个单一目标，以更好地应用策略，如强化学习或基于梯度的方法。 我们可以把这个班分成两个班不同的方法:两阶段优化和约束优化。\
+
+
+
+
+
+
+
+
